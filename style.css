@@ -1,0 +1,11 @@
+body {
+    font-family: "Gochi Hand", Montserrat;
+}
+
+.navbar {
+    text-align: center;
+}
+
+.column-1 {
+    background-color: lightgrey;
+}
