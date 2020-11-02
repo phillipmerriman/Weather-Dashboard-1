@@ -12,7 +12,7 @@
     <!-- Image and text -->
   <nav class="navbar navbar-dark bg-dark">
     <a class="navbar-brand" href="#">
-      <img src="/docs/4.5/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+      <!-- <img src="/docs/4.5/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy"> -->
       Weather Dashboard
     </a>
   </nav>
@@ -24,56 +24,66 @@
       <div class="row h-100">
           <div class="col-md-3 column-1">
             <h2 for="city">Search for a city:</h2>
-            <input type="text" id="city" name="city" placeholder="Austin">
-            <input type="submit" id="city" name="city"><br />
-            <!-- input for block -->
-            <textarea type="text" class="alert-primary" id="9" name="event-9am" placeholder="Enter event"></textarea>
+            <form>
+              <input type="text" class="form-control mb-2" id="city" name="city" placeholder="Austin">
+              <button type="submit" class="btn btn-primary mb-2">Search</button>
+            </form>
+            <!-- <input type="submit"><br /> -->
+            <!-- previously searched -->
+            <h5>Recent:</h5>
+            <h6 class="border bg-light last-search">Austin</h6>
           </div>
-          <!-- current city row -->
           
-            <div class="col-md-9">
-              <h1>Austin (date)</h1>
-              <h3>Temperature</h3>
-              <h3>Humidity</h3>
-              <h3>Wind Speed</h3>
-              <h3>UV Index</h3>
-              <!-- 5-day forecast row -->
-              <h1>5-Day Forecast</h1>
-              <div class="row">
-                <div class="col-md-2 forecast-day">
-                  8/16/2020<br>
-                  &#127875 <br>
-                  Temp <br>
-                  Humidity
-                </div>
-                <div class="col-md-2 forecast-day">
-                  8/17/2020<br>
-                  &#127875 <br>
-                  Temp <br>
-                  Humidity
-                </div>
-                <div class="col-md-2 forecast-day">
-                  8/18/2020<br>
-                  &#127875 <br>
-                  Temp <br>
-                  Humidity
-                </div>
-                <div class="col-md-2 forecast-day">
-                  8/19/2020<br>
-                  &#127875 <br>
-                  Temp <br>
-                  Humidity
-                </div>
-                <div class="col-md-2 forecast-day">
-                  8/20/2020 <br>
-                  &#127875 <br>
-                  Temp <br>
-                  Humidity
-                </div>
+          <!-- current city row -->
+          <div class="col-md-9">
+            <div class="row">
+              <div class="col-md-12 border border-info">
+                <h1>Austin (date)</h1>
+                <h3>Temperature</h3>
+                <h3>Humidity</h3>
+                <h3>Wind Speed</h3>
+                <h3>UV Index</h3>
               </div>
             </div>
+            <!-- 5-day forecast row -->
+            <h1>5-Day Forecast</h1>
+            <div class="row">
+              <div class="col-md-2 forecast-day">
+                8/16/2020<br>
+                &#127875 <br>
+                Temp <br>
+                Humidity
+              </div>
+              <div class="col-md-2 forecast-day">
+                8/17/2020<br>
+                &#127875 <br>
+                Temp <br>
+                Humidity
+              </div>
+              <div class="col-md-2 forecast-day">
+                8/18/2020<br>
+                &#127875 <br>
+                Temp <br>
+                Humidity
+              </div>
+              <div class="col-md-2 forecast-day">
+                8/19/2020<br>
+                &#127875 <br>
+                Temp <br>
+                Humidity
+              </div>
+              <div class="col-md-2 forecast-day">
+                8/20/2020 <br>
+                &#127875 <br>
+                Temp <br>
+                Humidity
+              </div>
+            </div>
+          </div>
       </div>
   </div>
-    <script src="script.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

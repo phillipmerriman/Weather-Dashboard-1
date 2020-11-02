@@ -15,9 +15,13 @@ body {
     height: 100%;
 }
 
-.widest{
+.widest {
     width: 100%;
     background-color: chartreuse;
+}
+
+.last-search {
+    margin: auto;
 }
 
 .forecast-day {
@@ -25,3 +29,4 @@ body {
     background-color: blue;
     color: cornsilk;
 }
+
