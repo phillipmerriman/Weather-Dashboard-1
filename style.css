@@ -9,10 +9,13 @@ body {
 
 .column-1 {
     background-color: lightgrey;
+    margin-top: 5px;
+    border-radius: 5px;
 }
 
 .current, #current {
     margin: 5px;
+    border-radius: 5px;
 }
 
 #current {
@@ -26,11 +29,13 @@ body {
 
 .previous-search {
     margin: auto;
+    border-radius: 5px;
 }
 
 .forecast-day {
     margin: auto;
     background-color: #268ae7;
     color: cornsilk;
+    border-radius: 5px;
 }
 

@@ -117,4 +117,24 @@ $("button").on("click", function (e) {
     newAnchor.text(currentCity);
     $("#recent").prepend(newAnchor);
 
+    //get the 5 day forecast
+    let forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${currentCity}&appid=${apiKey}`;
+
+    $.ajax({
+        url: forecastUrl,
+        method: "GET"
+    }).then(function (response) {
+        let farenheit = (response.list[2].main.temp - 273.15) * 1.80 + 32;
+        console.log(response);
+        console.log(response.list[2].dt_txt);
+        console.log("icon");
+        console.log(Math.floor(farenheit) + " ° F");
+        console.log(response.list[2].main.humidity);
+    })
+
+})
+
+$(document).on("click", ".previous-search", function (e) {
+    e.preventDefault();
+
 })
