@@ -16,6 +16,9 @@ THEN I am presented with the last searched city forecast
 create variables for URLs and api key
 create event listener for search button
     set user input to a variable
+    add userinput to recent list with id of city
+        create event listener for if user clicks on item in recent list
+            it does the same thing as if user clicks on search button
     use AJAX to:
         get weather data for user input/city:
             get lat-lon coordinates from 
