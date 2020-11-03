@@ -16,7 +16,7 @@ THEN I am presented with the last searched city forecast
 create variables for URLs and api key
 create event listener for search button
     set user input to a variable
-    add userinput to recent list with id of city
+    add userinput to recent list with class of .previous-search
         create event listener for if user clicks on item in recent list
             it does the same thing as if user clicks on search button
     use AJAX to:
@@ -51,6 +51,7 @@ create event listener for recent searches element(s)
 let apiKey = "5602f605cfcea993a0617227f0c3e839";
 let date = dayjs().format("MMM DD, YYYY");
 
+
 // function getWeather (city) {}
 
 $("button").on("click", function (e) {
@@ -59,20 +60,16 @@ $("button").on("click", function (e) {
     let currentCity = $("#city-search").val();
     let currentUrl = `http://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${apiKey}`;
 
-    console.log(currentCity);
-
     $.ajax({
         url: currentUrl,
         method: "GET"
     }).then(function(response) {
-        console.log(response);
         let lat = response.coord.lat;
         let lon = response.coord.lon;
         let oneCallUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
         let iconHtml = `https://openweathermap.org/img/wn/`;
         let imageName = response.weather[0].icon;
         let imgUrl = iconHtml + imageName + ".png";
-        console.log(imgUrl);
 
         $.ajax({
             url: oneCallUrl,
@@ -84,6 +81,7 @@ $("button").on("click", function (e) {
             let wind = response.current.wind_speed;
             let uvindex = response.current.uvi;
 
+            //thanks to my classmates Spencer Rosio and Caleb Walker for the help with this image!
             $("#icon-today").attr("src", imgUrl);
 
             $("#current-day").text(`${currentCity} (${date})`);
@@ -93,6 +91,8 @@ $("button").on("click", function (e) {
             $("#current-uv").empty();
             $("#current-uv").text("UV-Index: ")
             $("#current-uv").append($(`<p class='border' id="uv-condition">${uvindex}<p>`));
+
+            //set uvindex color based on uv-condition
             if(uvindex < 3) {
                 $("#uv-condition").css("background-color", "skyblue");    
             } 
@@ -108,9 +108,13 @@ $("button").on("click", function (e) {
                 $("#uv-condition").css("background-color", "rebeccapurple");
             }
             
+            //empty search field
             $("#city-search").val("");
         })
     })
-
+    
+    let newAnchor = $(`<a href="#" class="row border bg-light previous-search">`);
+    newAnchor.text(currentCity);
+    $("#recent").prepend(newAnchor);
 
 })

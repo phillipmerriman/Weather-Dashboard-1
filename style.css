@@ -15,18 +15,22 @@ body {
     margin: 5px;
 }
 
+#current {
+    background-color: #e9ecef;
+}
+
 .widest {
     width: 100%;
     background-color: chartreuse;
 }
 
-.last-search {
+.previous-search {
     margin: auto;
 }
 
 .forecast-day {
     margin: auto;
-    background-color: blue;
+    background-color: #268ae7;
     color: cornsilk;
 }
 
