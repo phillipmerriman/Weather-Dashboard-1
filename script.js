@@ -45,6 +45,7 @@ create event listener for recent searches element(s)
 */
 
 let apiKey = "5602f605cfcea993a0617227f0c3e839";
+let date = dayjs().format("MMM DD, YYYY");
 
 $("button").on("click", function (e) {
     e.preventDefault();
@@ -56,9 +57,10 @@ $("button").on("click", function (e) {
         url: currentUrl,
         method: "GET"
     }).then(function(response) {
+        console.log(response);
         let lat = response.coord.lat;
         let lon = response.coord.lon;
-        let date = response.dt_txt;
+        // let date = response.dt;
         let oneCallUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
         console.log(date);
 
@@ -66,17 +68,17 @@ $("button").on("click", function (e) {
             url: oneCallUrl,
             method: "GET"
         }).then(function(response) {
-            console.log(response);
+
             let temp = (response.current.temp - 273.15) * 1.80 + 32;
             let humidity = response.current.humidity;
             let wind = response.current.wind_speed;
             let uvindex = response.current.uvi;
-            console.log(Math.floor(temp), humidity, wind, uvindex);
+
             $("#current-day").text(`${currentCity} (${date})`);
             $("#current-temp").text(`Temperature: ${Math.floor(temp)} ° F`);
             $("#current-humidity").text(`Humidity: ${humidity}`);
             $("#current-wind").text(`Wind Speed: ${wind} mph`);
-            $("#current-uv").text(`UV-Index: ${uvindex}`);
+            $("#current-uv").append($(`<p class='border'>${uvindex}<p>`));
         })
     })
 
