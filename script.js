@@ -64,7 +64,7 @@ $("button").on("click", function (e) {
         url: currentUrl,
         method: "GET"
     }).then(function(response) {
-        
+
         let lat = response.coord.lat;
         let lon = response.coord.lon;
         let oneCallUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
@@ -127,17 +127,20 @@ $("button").on("click", function (e) {
     }).then(function (response) {
         let j = 8;
         console.log(response)
-        for(let i = 0; i < 5; i++) {
+        for(let i = 1; i < 6; i++) {
 
-            let fDate = response.list[j].dt_txt;
+            //how to get just month and date? Why is it only updating first 4 divs of the 5-day forecast?
+            
+            let today = new Date(); //dayjs().format(`MMM DD`); //response.list[j].dt_txt;
+            let tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + i);
 
             let farenheit = (response.list[j].main.temp - 273.15) * 1.80 + 32;
             let fHumidity = response.list[j].main.humidity;
 
             $(`#${i}`).empty();
-            $(`#${i}`).text(fDate + $("<br>") + Math.floor(farenheit) + " ° F", $("<br>") + fHumidity);
+            $(`#${i}`).text(tomorrow);
             console.log(j);
-            console.log(fDate);
             console.log("icon");
             console.log(Math.floor(farenheit) + " ° F");
             console.log(response.list[j].main.humidity);
