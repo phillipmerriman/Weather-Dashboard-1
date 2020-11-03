@@ -32,6 +32,7 @@ create event listener for search button
             use currentAPI to get lat&lon for current city, setting variables accordingly
             for current day:
                 city(use lat&lon to set current city variable response.coord.lat, response.coord.lon), date(response.dt_txt), temp(translate from kelvin to farenheit)((response.current.temp - 273.15) * 1.80 + 32), humidity(response.current.humidity), wind speed(response.current.wind_speed), uvindex, uvindex color(favorable, moderate, severe)
+            save variables to localStorage for future recall    
         display current city and date to current city row
         create variables
             for forecast:
@@ -47,12 +48,16 @@ create event listener for recent searches element(s)
 let apiKey = "5602f605cfcea993a0617227f0c3e839";
 let date = dayjs().format("MMM DD, YYYY");
 
+// function getWeather (city) {}
+
 $("button").on("click", function (e) {
     e.preventDefault();
 
     let currentCity = $("#city").val();
     let currentUrl = `http://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${apiKey}`;
+
     console.log(currentCity);
+
     $.ajax({
         url: currentUrl,
         method: "GET"
@@ -60,7 +65,6 @@ $("button").on("click", function (e) {
         console.log(response);
         let lat = response.coord.lat;
         let lon = response.coord.lon;
-        // let date = response.dt;
         let oneCallUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
         console.log(date);
 
@@ -78,7 +82,22 @@ $("button").on("click", function (e) {
             $("#current-temp").text(`Temperature: ${Math.floor(temp)} ° F`);
             $("#current-humidity").text(`Humidity: ${humidity}`);
             $("#current-wind").text(`Wind Speed: ${wind} mph`);
-            $("#current-uv").append($(`<p class='border'>${uvindex}<p>`));
+            $("#current-uv").append($(`<p class='border' id="uv-condition">${uvindex}<p>`));
+            if(uvindex < 3) {
+                $("#uv-condition").css("background-color", "skyblue");    
+            } 
+            else if (uvindex < 6) {
+                $("#uv-condition").css("background-color", "yellow");
+            }
+            else if (uvindex < 8) {
+                $("#uv-condition").css("background-color", "orange");
+            }
+            else if (uvindex < 11) {
+                $("#uv-condition").css("background-color", "red");
+            } else {
+                $("#uv-condition").css("background-color", "rebeccapurple");
+            }
+            
         })
     })
 
