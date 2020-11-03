@@ -56,7 +56,7 @@ let date = dayjs().format("MMM DD, YYYY");
 $("button").on("click", function (e) {
     e.preventDefault();
 
-    let currentCity = $("#city").val();
+    let currentCity = $("#city-search").val();
     let currentUrl = `http://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${apiKey}`;
 
     console.log(currentCity);
@@ -69,7 +69,10 @@ $("button").on("click", function (e) {
         let lat = response.coord.lat;
         let lon = response.coord.lon;
         let oneCallUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-        console.log(date);
+        let iconHtml = `https://openweathermap.org/img/wn/`;
+        let imageName = response.weather[0].icon;
+        let imgUrl = iconHtml + imageName + ".png";
+        console.log(imgUrl);
 
         $.ajax({
             url: oneCallUrl,
@@ -81,10 +84,14 @@ $("button").on("click", function (e) {
             let wind = response.current.wind_speed;
             let uvindex = response.current.uvi;
 
+            $("#icon-today").attr("src", imgUrl);
+
             $("#current-day").text(`${currentCity} (${date})`);
             $("#current-temp").text(`Temperature: ${Math.floor(temp)} ° F`);
             $("#current-humidity").text(`Humidity: ${humidity}`);
             $("#current-wind").text(`Wind Speed: ${wind} mph`);
+            $("#current-uv").empty();
+            $("#current-uv").text("UV-Index: ")
             $("#current-uv").append($(`<p class='border' id="uv-condition">${uvindex}<p>`));
             if(uvindex < 3) {
                 $("#uv-condition").css("background-color", "skyblue");    
@@ -101,6 +108,7 @@ $("button").on("click", function (e) {
                 $("#uv-condition").css("background-color", "rebeccapurple");
             }
             
+            $("#city-search").val("");
         })
     })
 
