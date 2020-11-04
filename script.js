@@ -84,7 +84,7 @@ $("button").on("click", function (e) {
       $("#icon-today").attr("src", imgUrl);
 
       $("#current-day").text(`${currentCity} (${date})`);
-      $("#current-temp").text(`Temperature: ${Math.floor(temp)} ° F`);
+      $("#current-temp").text(`Temperature: ${Math.floor(temp)}° F`);
       $("#current-humidity").text(`Humidity: ${humidity}`);
       $("#current-wind").text(`Wind Speed: ${wind} mph`);
       $("#current-uv").empty();
@@ -127,15 +127,12 @@ $("button").on("click", function (e) {
     url: forecastUrl,
     method: "GET",
   }).then(function (response) {
-    // let j = 8;
     console.log(response);
-    let dayCounter = 0;
     for (let i = 1; i < 6; i++) {
-      console.log(i);
-      //how to get just month and date? Why is it only updating first 4 divs of the 5-day forecast?
+
       let year = Date().substr(11, 4);
       let month = Date().substr(4, 3);
-      let day = parseInt(Date().substr(8, 2)) + i + 1;
+      let day = parseInt(Date().substr(8, 2)) + i;
 
       switch (month) {
         case "Jan":
@@ -175,26 +172,23 @@ $("button").on("click", function (e) {
           month = 12;
       }
 
-      // day < 10 ? `${0}${day}` : day;
-
       let exactDate = `${year}-${month}-${day < 10 ? "0" + day : day}`;
-      console.log(exactDate);
 
       // this console.log breaks stuff
       // console.log(response.list[j].dt_txt.substr(0, 10));
 
       for (let k = 0; k < response.list.length; k++) {
         if (response.list[k].dt_txt.substr(0, 10) === exactDate) {
-          console.log(response.list[k].dt_txt.substr(0, 10));
-          console.log(i);
 
           let futureDay = response.list[k].dt_txt.substr(0, 10);
 
           let farenheit = (response.list[k].main.temp - 273.15) * 1.8 + 32;
           let fHumidity = response.list[k].main.humidity;
 
-          $(`#${i}`).empty();
-          $(`#${i}`).text(futureDay);
+          // $(`#${i}`).empty();
+          $(`#${i}-date`).text(futureDay);
+          $(`#${i}-temp`).text(`Temp: ${Math.floor(farenheit)}° F`);
+          $(`#${i}-hum`).text(`Humidity: ${fHumidity}`);
         }
       }
 
@@ -202,8 +196,6 @@ $("button").on("click", function (e) {
       // console.log("icon");
       // console.log(Math.floor(farenheit) + " ° F");
       // console.log(response.list[j].main.humidity);
-
-    //   j += 8;
     }
   });
 });
