@@ -50,9 +50,17 @@ create event listener for recent searches element(s)
 
 let apiKey = "5602f605cfcea993a0617227f0c3e839";
 let date = dayjs().format("MMM DD, YYYY");
-let searchNumber = 1;
+let searchNumber = localStorage.length;
 
 // function getWeather (city) {}
+
+//Get recent searches from localStorage and render as an anchor tag to #recent div
+for (let i = 0; i <= localStorage.length; i++) {
+  let newAnchorEl = $(`<a href="#" class="row border bg-light previous-search">`)
+  let recentCity = localStorage.getItem(`city${i}`);
+  newAnchorEl.text(recentCity);
+  $("#recent").append(newAnchorEl);
+}
 
 $("button").on("click", function (e) {
   e.preventDefault();
@@ -63,7 +71,11 @@ $("button").on("click", function (e) {
   $.ajax({
     url: currentUrl,
     method: "GET",
+  }).fail(function () {
+    alert('Please enter a valid city.');
+    return;
   }).then(function (response) {
+
     let lat = response.coord.lat;
     let lon = response.coord.lon;
     let oneCallUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
@@ -80,7 +92,7 @@ $("button").on("click", function (e) {
       let wind = response.current.wind_speed;
       let uvindex = response.current.uvi;
 
-      //thanks to my classmates Spencer Rosio and Caleb Walker for the help with this image!
+      //thanks to my classmates Spencer Rosio and Caleb Walker for the help with this weather image!
       $("#icon-today").attr("src", imgUrl);
 
       $("#current-day").text(`${currentCity} (${date})`);
@@ -109,16 +121,18 @@ $("button").on("click", function (e) {
       //empty search field
       $("#city-search").val("");
     });
+    //save search to recent search list
+    let newAnchor = $(`<a href="#" class="row border bg-light previous-search">`);
+    newAnchor.text(currentCity);
+    $("#recent").prepend(newAnchor);
+  
+    //set search to local storage
+    localStorage.setItem(`city${searchNumber}`, currentCity);
+    searchNumber++;
   });
 
-  //save search to recent search list
-  let newAnchor = $(`<a href="#" class="row border bg-light previous-search">`);
-  newAnchor.text(currentCity);
-  $("#recent").prepend(newAnchor);
-
-  //set search to local storage
-  localStorage.setItem(`city${searchNumber}`, currentCity);
-  searchNumber++;
+  
+  
 
   //get the 5 day forecast
   let forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${currentCity}&appid=${apiKey}`;
@@ -127,7 +141,7 @@ $("button").on("click", function (e) {
     url: forecastUrl,
     method: "GET",
   }).then(function (response) {
-    console.log(response);
+    
     for (let i = 1; i < 6; i++) {
 
       let year = Date().substr(11, 4);
