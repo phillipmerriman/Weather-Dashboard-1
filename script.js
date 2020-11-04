@@ -70,6 +70,7 @@ $("button").on("click", function (e) {
     url: currentUrl,
     method: "GET",
   }).fail(function () {
+    $("#city-search").val("");
     alert('Please enter a valid city.');
     return;
   }).then(function (response) {
