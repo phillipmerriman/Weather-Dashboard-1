@@ -181,12 +181,16 @@ $("button").on("click", function (e) {
         if (response.list[k].dt_txt.substr(0, 10) === exactDate) {
 
           let futureDay = response.list[k].dt_txt.substr(0, 10);
-
+          let fIconHtml = `https://openweathermap.org/img/wn/`;
+          let fIcon = response.list[k].weather[0].icon;
+          let fImgUrl = fIconHtml + fIcon + ".png";
           let farenheit = (response.list[k].main.temp - 273.15) * 1.8 + 32;
           let fHumidity = response.list[k].main.humidity;
 
           // $(`#${i}`).empty();
           $(`#${i}-date`).text(futureDay);
+          $(`#${i}-icon`).attr("src", fImgUrl); 
+          $(`#${i}-icon`).attr("alt", "weather icon")
           $(`#${i}-temp`).text(`Temp: ${Math.floor(farenheit)}° F`);
           $(`#${i}-hum`).text(`Humidity: ${fHumidity}`);
         }
