@@ -10,6 +10,7 @@ body {
 .column-1 {
     background-color: lightgrey;
     margin-top: 5px;
+    margin-bottom: 5px;
     border-radius: 5px;
 }
 
@@ -34,6 +35,7 @@ body {
 
 .forecast-day {
     margin: auto;
+    margin-bottom: 5px;
     background-color: #268ae7;
     color: cornsilk;
     border-radius: 5px;
