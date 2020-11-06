@@ -64,7 +64,7 @@ $("button").on("click", function (e) {
   e.preventDefault();
 
   let currentCity = $("#city-search").val();
-  let currentUrl = `http://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${apiKey}`;
+  let currentUrl = `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${apiKey}`;
 
   $.ajax({
     url: currentUrl,
@@ -218,7 +218,7 @@ $(document).on("click", ".previous-search", function (e) {
   console.log($(this).text());
 
   let currentCity = $(this).text();
-  let currentUrl = `http://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${apiKey}`;
+  let currentUrl = `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${apiKey}`;
 
   $.ajax({
     url: currentUrl,
